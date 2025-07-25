@@ -23,19 +23,21 @@ repos:
       - id: mixed-line-ending
         args: ['--fix=lf']
 
-  # Python-specific hooks
+    # Python-specific hooks
   - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
       - id: black
         language_version: python3.11
         args: [--line-length=88]
+        files: ^gcp-storage-mcp/.*\.py$
 
   - repo: https://github.com/pycqa/isort
     rev: 5.13.2
     hooks:
       - id: isort
         args: [--profile=black, --line-length=88]
+        files: ^gcp-storage-mcp/.*\.py$
 
   - repo: https://github.com/pycqa/flake8
     rev: 7.3.0
@@ -46,6 +48,7 @@ repos:
           --extend-ignore=E203,W503,E501,
           --max-complexity=10
         ]
+        files: ^gcp-storage-mcp/.*\.py$
         additional_dependencies: [
           flake8-docstrings,
           flake8-bugbear,
@@ -57,7 +60,8 @@ repos:
     rev: v1.8.0
     hooks:
       - id: mypy
-        args: [--strict, --ignore-missing-imports]
+        args: [--strict, --ignore-missing-imports, --namespace-packages]
+        files: ^gcp-storage-mcp/.*\.py$
         additional_dependencies: [
           types-requests,
           types-PyYAML,
@@ -69,7 +73,8 @@ repos:
     rev: 1.7.5
     hooks:
       - id: bandit
-        args: [-r, src/, -f, json]
+        args: [-r, ., -f, json]
+        files: ^gcp-storage-mcp/.*\.py$
         exclude: ^tests/
 
   # Upgrade syntax for newer Python versions
@@ -78,6 +83,7 @@ repos:
     hooks:
       - id: pyupgrade
         args: [--py311-plus]
+        files: ^gcp-storage-mcp/.*\.py$
 
   # Check for common security issues
   - repo: https://github.com/Yelp/detect-secrets
@@ -92,6 +98,7 @@ repos:
     hooks:
       - id: pydocstyle
         args: [--convention=google]
+        files: ^gcp-storage-mcp/.*\.py$
 
   # YAML formatting
   - repo: https://github.com/pre-commit/mirrors-prettier
