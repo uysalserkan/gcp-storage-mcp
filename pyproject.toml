@@ -10,7 +10,12 @@ readme = "README.md"
 requires-python = ">=3.11, <4.0"
 dependencies = [
     "uvicorn (>=0.35.0,<0.36.0)",
-    "uv (>=0.8.3,<0.9.0)"
+    "uv (>=0.8.3,<0.9.0)",
+    "fastapi (>=0.116.1,<0.117.0)",
+    "fastmcp (>=2.10.6,<3.0.0)",
+    "google-cloud-storage (>=3.2.0,<4.0.0)",
+    "google-cloud-storage (>=3.2.0,<4.0.0)",
+    "google-cloud-storage (>=3.2.0,<4.0.0)"
 ]
 
 [tool.poetry]
@@ -20,6 +25,13 @@ fastapi = "^0.116.1"
 fastmcp = "^2.10.6"
 pydantic = "^2.11.7"
 google-cloud-storage = "^3.2.0"
+pre-commit = "^4.2.0"
+black = "^25.1.0"
+isort = "^6.0.1"
+ruff = "^0.12.5"
+mypy = "^1.17.0"
+bandit = "^1.8.6"
+jupyterlab = "^4.4.5"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
