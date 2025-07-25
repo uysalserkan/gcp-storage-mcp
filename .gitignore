@@ -209,4 +209,4 @@ __marimo__/
 
 .ipynb_checkpoints/
 .ipynb
-.json
+*.json
