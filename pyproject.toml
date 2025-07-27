@@ -21,6 +21,9 @@ dependencies = [
     "structlog (>=25.4.0,<26.0.0)"
 ]
 
+[project.scripts]
+gcp-storage-mcp = 'gcp_storage_mcp.gcps_mcp:main'
+
 [tool.poetry]
 
 [tool.poetry.group.dev.dependencies]
