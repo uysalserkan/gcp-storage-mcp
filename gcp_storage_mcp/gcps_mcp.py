@@ -4,6 +4,7 @@ A Model Context Protocol server that provides Google Cloud Storage operations
 for AI assistants to interact with GCS buckets and objects.
 """
 
+import argparse
 import logging
 import os
 import sys
@@ -15,8 +16,7 @@ from fastmcp import FastMCP
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from provider import (
-    GCPStorageProvider, GCPProjectProvider, ProviderConfig,
-    ValidationError, OperationError, GCPStorageError
+    GCPStorageProvider, GCPProjectProvider, ValidationError, OperationError, GCPStorageError
 )
 
 # Configure logging
@@ -698,11 +698,11 @@ def filter_blobs_by_size(bucket_name: str, min_size_mb: float = 0, max_size_mb: 
 
 # ========== SERVER INITIALIZATION ==========
 
-def initialize_providers(config: Optional[ProviderConfig] = None) -> None:
+def initialize_providers(credential_path: Optional[str] = None) -> None:
     """Initialize the GCP Storage and Project providers.
 
     Args:
-        config: Optional configuration for the providers.
+        credential_path: Optional path to the credential file.
     """
     global storage_provider, project_provider
 
@@ -710,7 +710,7 @@ def initialize_providers(config: Optional[ProviderConfig] = None) -> None:
         logger.info("Initializing GCP Storage MCP Server...")
 
         # Initialize providers
-        storage_provider = GCPStorageProvider(config)
+        storage_provider = GCPStorageProvider(credential_path)
         project_provider = GCPProjectProvider()
 
         logger.info(f"Providers initialized successfully for project: {storage_provider.get_current_project_id()}")
@@ -724,7 +724,11 @@ def main():
     """Main function to run the MCP server."""
     try:
         # Initialize providers
-        initialize_providers()
+        args = argparse.ArgumentParser()
+        args.add_argument("--credential_path", type=str, help="Path to the credential file", required=True)
+        args = args.parse_args()
+        logger.info(f"Arguments: {args}")
+        initialize_providers(args.credential_path)
 
         # Start the MCP server
         logger.info("Starting GCP Storage MCP Server...")
@@ -735,9 +739,6 @@ def main():
     except Exception as e:
         logger.error(f"Server error: {e}")
         raise
-
-
-initialize_providers()
 
 if __name__ == "__main__":
     # Run the server

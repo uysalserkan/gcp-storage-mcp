@@ -10,7 +10,7 @@ from contextlib import contextmanager
 from google.cloud import storage
 from google.cloud.exceptions import NotFound, Conflict, Forbidden
 from googleapiclient.discovery import build
-
+from google.oauth2 import service_account
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -82,7 +82,7 @@ class GCPProjectProvider:
 class GCPStorageProvider:
     """Provider for the GCP Storage MCP with professional standards."""
 
-    def __init__(self, config: Optional[ProviderConfig] = None):
+    def __init__(self, credential_path: Optional[str] = None):
         """Initialize the GCP Storage Provider.
 
         Args:
@@ -91,9 +91,11 @@ class GCPStorageProvider:
         Raises:
             OperationError: If initialization fails.
         """
-        self.config = config or ProviderConfig()
+        self.config = ProviderConfig()
         try:
-            self.storage_client = storage.Client()
+            logger.info(f"Initializing GCP Storage Provider with credential path: {credential_path}")
+            credentials = service_account.Credentials.from_service_account_file(credential_path)
+            self.storage_client = storage.Client(credentials=credentials)
             logger.info(f"GCP Storage Provider initialized for project: {self.storage_client.project}")
         except Exception as e:
             logger.error(f"Failed to initialize GCP Storage Provider: {e}")
