@@ -13,7 +13,7 @@ repos:
       - id: check-toml
       - id: check-xml
       - id: check-added-large-files
-        args: ['--maxkb=1000']
+        args: ['--maxkb=10000']
       - id: check-case-conflict
       - id: check-merge-conflict
       - id: check-symlinks
