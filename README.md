@@ -2,7 +2,7 @@
 
 A comprehensive, enterprise-grade FastAPI server providing REST endpoints for Google Cloud Storage operations. Built with production-ready features including authentication, rate limiting, monitoring, caching, and structured logging.
 
-![Logo](imgs/logo.png)
+![Logo](imgs/logo.png){: width="50%"}
 
 ## ✨ Features
 
