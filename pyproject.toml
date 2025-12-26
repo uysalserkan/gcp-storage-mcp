@@ -28,7 +28,7 @@ gcp-storage-mcp = 'gcp_storage_mcp.gcps_mcp:main'
 
 [tool.poetry.group.dev.dependencies]
 fastapi = "^0.116.1"
-fastmcp = "^2.10.6"
+fastmcp = "^2.14.0"
 pydantic = "^2.11.7"
 google-cloud-storage = "^3.2.0"
 pre-commit = "^4.2.0"
